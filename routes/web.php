@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\tasks;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Models\users;
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome', [
+            'users' => users::all(),
+            'tasks' => tasks::all(),
+        ]
+    );
+});
+
+
+Route::get('/tasks/{id}', function ($id) {
+    return view('tasks', [
+            'tasks' => tasks::all()[$id-1],
+        ]
+    );
 });
