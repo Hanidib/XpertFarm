@@ -1,8 +1,12 @@
 <?php
 
+use App\Http\Controllers\API\StockController;
 use App\Http\Controllers\API\UserController;
+use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
+use Illuminate\Routing\RouteGroup;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [UserController::class, 'login']);
 Route::post('register', [UserController::class, 'register']);
 
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::Group(['middleware' => ['auth:sanctum']], function () {
+    Route::resource('stocks', StockController::class);
 });
