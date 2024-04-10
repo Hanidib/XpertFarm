@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('purchase_order', function (Blueprint $table) {
             $table->id();
-            $table->string('order_date');
+            $table->dateTime('order_date');
             $table->unsignedBigInteger('stock_id');
             $table->foreign('stock_id')->references('id')->on('stock');
             $table->unsignedBigInteger('supplier_id');
             $table->foreign('supplier_id')->references('id')->on('supplier');
-            $table->string('quantity_ordered');
-            $table->string('total_cost');
+            $table->bigInteger('quantity_ordered');
+            $table->float('total_cost');
             $table->timestamps();
         });
     }

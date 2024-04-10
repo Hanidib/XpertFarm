@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('stock', function (Blueprint $table) {
             $table->id();
             $table->string('item_name');
-            $table->string('quantity');
-            $table->string('price');
-            $table->string('date_added');
-            $table->string('sold_quantity');
-            $table->string('expiration_date');
-            $table->string('notes');
+            $table->bigInteger('quantity');
+            $table->integer('price');
+            $table->date('date_added');
+            $table->bigInteger('sold_quantity');
+            $table->date('expiration_date');
+            $table->longText('notes');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
 

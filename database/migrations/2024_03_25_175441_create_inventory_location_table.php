@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('inventory_location', function (Blueprint $table) {
             $table->id();
-            $table->string('location');
-            $table->string('description');
+            $table->longText('location');
+            $table->text('description');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
