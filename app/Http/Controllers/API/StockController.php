@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StockRequest;
+use App\Http\Requests\SupplierRequest;
 use App\Models\Stock;
+use App\Models\Supplier;
 use LDAP\Result;
 
 class StockController extends Controller

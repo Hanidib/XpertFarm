@@ -13,7 +13,7 @@ class Supplier extends Model
         'name',
         'phone',
         'address',
-        'paymenet_terms',
+        'payment_terms',
         'user_id',
     ];
     public function user()
