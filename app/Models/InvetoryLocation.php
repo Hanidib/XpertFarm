@@ -9,7 +9,6 @@ class InvetoryLocation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'location_id',
         'location',
         'description',
         'user_id',

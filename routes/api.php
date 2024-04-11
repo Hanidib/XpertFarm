@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\API\InvetoryLocationController;
 use App\Http\Controllers\API\StockController;
 use App\Http\Controllers\API\SupplierController;
 use App\Http\Controllers\API\UserController;
+use App\Models\InvetoryLocation;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Routing\RouteGroup;
@@ -28,4 +30,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 });
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('suppliers', SupplierController::class);
+});
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::resource('InvetoryLocation', InvetoryLocationController::class);
 });
