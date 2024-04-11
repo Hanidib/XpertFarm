@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StockRequest;
 use App\Models\Stock;
+use LDAP\Result;
 
 class StockController extends Controller
 {
@@ -14,7 +15,12 @@ class StockController extends Controller
      */
     public function index()
     {
-        //
+        $stocks = Stock::all();
+        return response()->json([
+            'status' => true,
+            'data' => $stocks,
+            'message' => 'List of Stocks'
+        ]);
     }
 
     /**
@@ -40,23 +46,35 @@ class StockController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $stock = Stock::find($id);
+        if ($stock) {
+            return response()->json([
+                'status' => true,
+                'data' => $stock,
+                'message' => 'Stock Information'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => 'Stock not found'
+            ]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(StockRequest $request, string $id)
     {
-        //
+        $stock = Stock::find($id);
+        $stock = $stock->update($request->all());
+        return response()->json([
+            'status' => true,
+            'data' => $stock,
+            'message' => 'Stock Update Successfully'
+        ]);
     }
 
     /**
@@ -64,6 +82,19 @@ class StockController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $result = Stock::destroy($id);
+        if ($result) {
+            return response()->json([
+                'status' => true,
+                'data' => null,
+                'message' => 'Stock Deleted Successfully'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => 'Stock not found'
+            ]);
+        }
     }
 }
