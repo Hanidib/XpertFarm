@@ -12,7 +12,7 @@ class PurchaseOrder extends Model
         'id',
         'order_date',
         'stock_id',
-        'supllier_id',
+        'supplier_id',
         'quantity_ordered',
         'total_cost',
     ];

@@ -4,6 +4,8 @@ use App\Http\Controllers\API\InvetoryLocationController;
 use App\Http\Controllers\API\StockController;
 use App\Http\Controllers\API\SupplierController;
 use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\API\PurchaseOrderController;
+
 use App\Models\InvetoryLocation;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
@@ -34,4 +36,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('InvetoryLocation', InvetoryLocationController::class);
+});
+Route::group(['middleweare' => ['auto:sanctum']], function () {
+    Route::resource('PurchaseOrder', PurchaseOrderController::class);
 });
