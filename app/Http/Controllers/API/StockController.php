@@ -80,13 +80,23 @@ class StockController extends Controller
      */
     public function update(StockRequest $request, string $id)
     {
-        $stock = Stock::find($id);
-        $stock = $stock->update($request->all());
-        return response()->json([
-            'status' => true,
-            'data' => $stock,
-            'message' => 'Stock Update Successfully'
-        ]);
+        $user = auth()->user();
+        if ($user->id == $request->get("user_id")) {
+            $stock = Stock::find($id);
+            $stock = $stock->update($request->all());
+            return response()->json([
+                'status' => true,
+                'data' => $stock,
+                'message' => 'Stock Update Successfully'
+            ]);
+        } else {
+            $stock = Stock::create($request->all());
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => 'user is not Authenticated'
+            ]);
+        }
     }
 
     /**

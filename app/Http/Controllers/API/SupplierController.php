@@ -69,13 +69,23 @@ class SupplierController extends Controller
      */
     public function update(SupplierRequest $request, string $id)
     {
-        $suppliers = Supplier::find($id);
-        $suppliers = $suppliers->update($request->all());
-        return response()->json([
-            'status' => true,
-            'data' => $suppliers,
-            'message' => 'Suppliers Update Successfuly'
-        ]);
+        $user = auth()->user();
+        if ($user->id == $request->get("user_id")) {
+            $suppliers = Supplier::find($id);
+            $suppliers = $suppliers->update($request->all());
+            return response()->json([
+                'status' => true,
+                'data' => $suppliers,
+                'message' => 'Suppliers Update Successfuly'
+            ]);
+        } else {
+            $suppliers = Supplier::create($request->all());
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => 'user is not Authenticated'
+            ]);
+        }
     }
 
     /**

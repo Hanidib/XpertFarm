@@ -73,13 +73,23 @@ class InvetoryLocationController extends Controller
      */
     public function update(InvetoryLocationRequest $request, string $id)
     {
-        $InvetoryLocation = InvetoryLocation::find($id);
-        $InvetoryLocation = $InvetoryLocation->update($request->all());
-        return response()->json([
-            'status' => true,
-            'data' => $InvetoryLocation,
-            'message' => 'Invetory Location Update Successfully'
-        ]);
+        $user = auth()->user();
+        if ($user->id == $request->get("user_id")) {
+            $InvetoryLocation = InvetoryLocation::find($id);
+            $InvetoryLocation = $InvetoryLocation->update($request->all());
+            return response()->json([
+                'status' => true,
+                'data' => $InvetoryLocation,
+                'message' => 'Invetory Location Update Successfully'
+            ]);
+        } else {
+            $InvetoryLocation = InvetoryLocation::create($request->all());
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => 'user is not Authenticated'
+            ]);
+        }
     }
 
     /**
