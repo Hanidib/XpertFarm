@@ -19,16 +19,8 @@ class PurchaseOrderController extends Controller
         return response()->json([
             'status' => true,
             'data' => $PurchaseOrder,
-            'message' => 'list of PurchaseOrder'
+            'message' => 'list of Purchase Order'
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
     }
 
     /**
@@ -40,7 +32,7 @@ class PurchaseOrderController extends Controller
         return response()->json([
             'status' => true,
             'data' => $PurchaseOrder,
-            'message' => 'PurchaseOrder Created Successfully'
+            'message' => 'Purchase Order Created Successfully'
 
         ]);
     }
@@ -50,23 +42,35 @@ class PurchaseOrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $PurchaseOrder = PurchaseOrder::find($id);
+        if ($PurchaseOrder) {
+            return response()->json([
+                'status' => true,
+                'data' => $PurchaseOrder,
+                'message' => 'Purchase Order Information'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => 'Purchase Order not found'
+            ]);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        //
+        $PurchaseOrder = PurchaseOrder::find($id);
+        $PurchaseOrder = $PurchaseOrder->update($request->all());
+        return response()->json([
+            'status' => true,
+            'data' => $PurchaseOrder,
+            'message' => 'Purchase Order Update Successfully'
+        ]);
     }
 
     /**
@@ -74,6 +78,19 @@ class PurchaseOrderController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $result = PurchaseOrder::destroy($id);
+        if ($result) {
+            return response()->json([
+                'status' => true,
+                'data' => null,
+                'message' => 'Purchase Order Deleted Successfully'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => 'Purchase Order not found'
+            ]);
+        }
     }
 }

@@ -26,14 +26,23 @@ class SupplierController extends Controller
      */
     public function store(SupplierRequest $request)
     {
-        $suppliers = Supplier::create($request->all());
-        return response()->json([
-            'status' => true,
-            'data' => $suppliers,
-            'message' => 'Supplier Created Successfully'
-        ]);
+        $user = auth()->user();
+        if ($user->id == $request->get("user_id")) {
+            $suppliers = Supplier::create($request->all());
+            return response()->json([
+                'status' => true,
+                'data' => $suppliers,
+                'message' => 'Supplier Created Successfully'
+            ]);
+        } else {
+            $suppliers = Supplier::create($request->all());
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => 'user is not Authenticated'
+            ]);
+        }
     }
-
     /**
      * Display the specified resource.
      */

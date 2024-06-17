@@ -15,6 +15,7 @@ class UserController extends Controller
         $email = $request->get('email');
         $password = $request->get('password');
 
+
         if (Auth::attempt(compact('email', 'password'))) {
             $user = auth()->user();
             $access_token = $user->createToken('authtoken')->plainTextToken;

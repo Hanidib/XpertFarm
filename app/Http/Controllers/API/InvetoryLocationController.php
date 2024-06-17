@@ -18,7 +18,7 @@ class InvetoryLocationController extends Controller
         return response()->json([
             'status' => true,
             'data' => $InvetoryLocation,
-            'message' => 'List of InvetoryLocations'
+            'message' => 'List of Invetory Locations'
         ]);
     }
 
@@ -28,12 +28,22 @@ class InvetoryLocationController extends Controller
      */
     public function store(InvetoryLocationRequest $request)
     {
-        $InvetoryLocation = InvetoryLocation::create($request->all());
-        return response()->json([
-            'status' => true,
-            'data' => $InvetoryLocation,
-            'message' => 'InvetoryLocation Created Successfully'
-        ]);
+        $user = auth()->user();
+        if ($user->id == $request->get("user_id")) {
+            $InvetoryLocation = InvetoryLocation::create($request->all());
+            return response()->json([
+                'status' => true,
+                'data' => $InvetoryLocation,
+                'message' => 'Invetory Location Created Successfully'
+            ]);
+        } else {
+            $InvetoryLocation = InvetoryLocation::create($request->all());
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => 'user is not Authenticated'
+            ]);
+        }
     }
 
     /**
@@ -46,13 +56,13 @@ class InvetoryLocationController extends Controller
             return response()->json([
                 'status' => true,
                 'data' => $InvetoryLocation,
-                'message' => 'InvetoryLocation Information'
+                'message' => 'Invetory Location Information'
             ]);
         } else {
             return response()->json([
                 'status' => false,
                 'data' => null,
-                'message' => 'InvetoryLocation not found'
+                'message' => 'Invetory Location not found'
             ]);
         }
     }
@@ -68,7 +78,7 @@ class InvetoryLocationController extends Controller
         return response()->json([
             'status' => true,
             'data' => $InvetoryLocation,
-            'message' => 'InvetoryLocation Update Successfully'
+            'message' => 'Invetory Location Update Successfully'
         ]);
     }
 
@@ -82,13 +92,13 @@ class InvetoryLocationController extends Controller
             return response()->json([
                 'status' => true,
                 'data' => null,
-                'message' => 'InvetoryLocation Deleted Successfully'
+                'message' => 'Invetory Location Deleted Successfully'
             ]);
         } else {
             return response()->json([
                 'status' => false,
                 'data' => null,
-                'message' => 'InvetoryLocation not found'
+                'message' => 'Invetory Location not found'
             ]);
         }
     }

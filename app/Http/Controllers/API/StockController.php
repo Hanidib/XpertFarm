@@ -35,12 +35,22 @@ class StockController extends Controller
      */
     public function store(StockRequest $request)
     {
-        $stock = Stock::create($request->all());
-        return response()->json([
-            'status' => true,
-            'data' => $stock,
-            'message' => 'Stock Created Successfully'
-        ]);
+        $user = auth()->user();
+        if ($user->id == $request->get("user_id")) {
+            $stock = Stock::create($request->all());
+            return response()->json([
+                'status' => true,
+                'data' => $stock,
+                'message' => 'stock Created Successfully'
+            ]);
+        } else {
+            $stock = Stock::create($request->all());
+            return response()->json([
+                'status' => false,
+                'data' => null,
+                'message' => 'user is not Authenticated'
+            ]);
+        }
     }
 
     /**
